@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}
+CowFeed
+{% endblock %}
+
+{% block content %}
+  <div class="card">
+
+    <script>
+      $(document).ready(function(){
+        $("button.accept").click(function(){
+          var tweet = $('textarea#editor').val();
+          $.get("/accept",
+          {
+            text: tweet
+          });
+            window.location.replace('/accept');
+        });
+      });
+    </script>
+
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <textarea id="editor" name="editor" class="textarea" rows="12">{{tweet_text}}</textarea>
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="level is-mobile">
+        <div class="level-left level-item">
+          <div class="level-item has-text-centered">
+            <button class="button accept is-primary is-inverted is-large">
+                <i class="material-icons">thumb_up</i>
+            </button>
+          </div>
+          <div class="level-item has-text-centered">
+            <a href="./deny" class="button is-danger is-inverted is-large">
+                <i class="material-icons">delete</i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}
+CowBoard
+{% endblock %}
+
+{% block content %}
+
+<nav class="panel">
+  <p class="panel-heading">
+    Stats
+  </p>
+  <a href="/dashboard/fill-feed" class="panel-block is-active">
+    <span class="material-icons">
+      hourglass_top
+    </span>
+    {{inqueue}}
+  </a>
+
+
+  <a href="/dashboard/force-tweet" class="panel-block is-active">
+    <span class="material-icons">
+      task_alt
+    </span>
+    {{ready}}
+  </a>
+
+</nav>
+
+{% endblock %}

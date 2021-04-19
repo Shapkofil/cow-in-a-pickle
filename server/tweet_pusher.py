@@ -11,7 +11,7 @@ from multiprocessing import Process
 import time
 
 class TweetPusher():
-    def __init__(self, data_path):
+    def __init__(self, data_path, heading="MOO, "):
 
         self.data_path = data_path
         with open(f"{self.data_path}/twitter-keys","r") as keyf:
@@ -24,6 +24,7 @@ class TweetPusher():
             self.api = tweepy.API(auth)
             print ("Connected to twitter")
 
+        self.heading = heading
 
         p = Process(target=self.schedule_handler)
         p.start()
@@ -32,7 +33,7 @@ class TweetPusher():
     def tweet(self):
         img_path = os.path.join(self.data_path, "images")
         target = os.path.join(img_path, os.listdir(img_path)[-1])
-        self.api.update_with_media(target, "MOO!")
+        self.api.update_with_media(target, self.heading)
         ## get rid of the target
         os.remove(target)
         print(f"{datetime.now()} | {target} has been tweeted")

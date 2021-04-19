@@ -18,7 +18,7 @@ DATA_DIR=os.path.join(
     "data")
 
 text_handler = TextHandler(DATA_DIR)
-tweet_pusher = TweetPusher(DATA_DIR)
+tweet_pusher = TweetPusher(DATA_DIR, heading = "Moo, learned this from #wallstreetbets")
 
 @app.route('/')
 def root_url():

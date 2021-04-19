@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import tweepy
-import schedule
+import importlib
 
 import os
 from datetime import datetime
@@ -12,6 +12,7 @@ import time
 
 class TweetPusher():
     def __init__(self, data_path):
+
         self.data_path = data_path
         with open(f"{self.data_path}/twitter-keys","r") as keyf:
             # Getting keys from the file and removing the newline
@@ -21,6 +22,7 @@ class TweetPusher():
             auth.set_access_token(keys[2], keys[3])
 
             self.api = tweepy.API(auth)
+            print ("Connected to twitter")
 
 
         p = Process(target=self.schedule_handler)
@@ -30,15 +32,23 @@ class TweetPusher():
     def tweet(self):
         img_path = os.path.join(self.data_path, "images")
         target = os.path.join(img_path, os.listdir(img_path)[-1])
-        self.api.update_with_media(target, "MOO!")
-        # get rid of the target
-        os.remove(target)
+        #self.api.update_with_media(target, "MOO!")
+        ## get rid of the target
+        #os.remove(target)
         print(f"{datetime.now()} | {target} has been tweeted")
 
     def schedule_handler(self):
-        for hour in ["03:00", "09:00", "11:00", "16:00", "19:00"]:
-            schedule.every().day.at(hour).do(self.tweet)
+        self.schedule = importlib.import_module("schedule")
 
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+        for hour in ["03:00", "09:00", "11:00", "16:00", "19:00"]:
+            self.schedule.every().day.at(hour).do(self.tweet)
+
+        self.schedule.every(5).seconds.do(self.tweet)
+
+        while 1:
+            n = self.schedule.idle_seconds()
+            if n is None:
+                break
+            elif n > 0:
+                time.sleep(n)
+            self.schedule.run_pending()

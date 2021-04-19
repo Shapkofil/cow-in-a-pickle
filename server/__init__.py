@@ -60,11 +60,7 @@ def forcetweet():
 
 @app.route("/dashboard/fill-feed")
 def fillfeed():
-    p = Process(target=fillqueue, args=(DATA_DIR, 200))
+    p = Process(target=fillqueue, args=(DATA_DIR, 200, "Moo, "))
     p.start()
     return redirect('/dashboard')
 
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")

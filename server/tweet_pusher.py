@@ -32,9 +32,9 @@ class TweetPusher():
     def tweet(self):
         img_path = os.path.join(self.data_path, "images")
         target = os.path.join(img_path, os.listdir(img_path)[-1])
-        #self.api.update_with_media(target, "MOO!")
+        self.api.update_with_media(target, "MOO!")
         ## get rid of the target
-        #os.remove(target)
+        os.remove(target)
         print(f"{datetime.now()} | {target} has been tweeted")
 
     def schedule_handler(self):
@@ -43,7 +43,6 @@ class TweetPusher():
         for hour in ["03:00", "09:00", "11:00", "16:00", "19:00"]:
             self.schedule.every().day.at(hour).do(self.tweet)
 
-        self.schedule.every(5).seconds.do(self.tweet)
 
         while 1:
             n = self.schedule.idle_seconds()

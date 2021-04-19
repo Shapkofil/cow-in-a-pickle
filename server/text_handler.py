@@ -6,6 +6,8 @@ from pqueue import Queue
 class TextHandler():
     def generator(self):
         while True:
+            if self.q.empty():
+                yield "empty queue"
             result = self.q.get()
             self.q._saveinfo()
             yield result

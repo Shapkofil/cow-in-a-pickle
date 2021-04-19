@@ -1,5 +1,4 @@
 from PIL import Image, ImageDraw, ImageFont
-import cv2
 
 import numpy as np
 import subprocess
@@ -67,15 +66,3 @@ def gen_tweet_image(text, path = "../../data/images"):
     img.save(f"{path}/{timestamp}.png");
     print(f"Tweet generated {timestamp}")
     return img
-
-
-if __name__ == "__main__":
-    obj = PilCowsay(subprocess.check_output(["fortune", ""]))
-    print(obj.content)
-
-    cv2.imshow("cowsay", np.asarray(obj.gen_img()))
-
-    while not (cv2.waitKey(0) & 0xFF == ord("q")):
-        pass
-
-    cv2.destroyAllWindows()

@@ -7,7 +7,7 @@ class TextHandler():
     def generator(self):
         while True:
             if self.q.empty():
-                yield "empty queue"
+                yield "empty queue".encode()
             result = self.q.get()
             self.q._saveinfo()
             yield result

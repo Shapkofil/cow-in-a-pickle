@@ -20,7 +20,7 @@ class TextHandler():
     def refresh(self):
         self.q = Queue(f"{self.data_dir}/vault", tempdir=f"{self.data_dir}/tmp")
         self.text = next(self.generator()).decode("UTF-8")
-        self.text = self.text[6:] + ", Moo"
+        self.text = self.text
 
     def save(self, text):
         self.text = "save"
